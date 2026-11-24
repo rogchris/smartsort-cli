@@ -1,0 +1,20 @@
+﻿{
+  "Rules": [
+    {
+      "Name": "Bewerbung PDF",
+      "TargetSubfolder": "Bewerbungen",
+      "AppliesToExtensions": [ ".pdf" ],
+      "FileNameContains": [ "bewerbung" ],
+      "ContentContains": [],
+      "Priority": 100
+    },
+    {
+      "Name": "Rechnung PDF",
+      "TargetSubfolder": "Rechnungen",
+      "AppliesToExtensions": [ ".pdf" ],
+      "FileNameContains": [ "rechnung", "invoice" ],
+      "ContentContains": [],
+      "Priority": 90
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36414.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartSort", "SmartSorter\SmartSort.csproj", "{5259022F-37AA-4CC9-963A-1446106E96CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartSorter.Tests", "SmartSorter.Tests\SmartSorter.Tests.csproj", "{D85730E9-FD40-43ED-B9BD-5E63F77CC7F0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5259022F-37AA-4CC9-963A-1446106E96CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5259022F-37AA-4CC9-963A-1446106E96CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5259022F-37AA-4CC9-963A-1446106E96CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5259022F-37AA-4CC9-963A-1446106E96CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D85730E9-FD40-43ED-B9BD-5E63F77CC7F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D85730E9-FD40-43ED-B9BD-5E63F77CC7F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D85730E9-FD40-43ED-B9BD-5E63F77CC7F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D85730E9-FD40-43ED-B9BD-5E63F77CC7F0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {40C4FB85-DDA6-4BF8-BD49-8A0FF5D48B37}
+	EndGlobalSection
+EndGlobal

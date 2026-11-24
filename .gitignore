@@ -1,0 +1,28 @@
+# .NET / IDE
+**/bin/
+**/obj/
+.vs/
+.idea/
+.vscode/
+*.user
+*.suo
+TestResults/
+coverage/
+*.coverage
+*.coveragexml
+# Local processing data
+Inbox/
+Sorted/
+Logs/
+**/Inbox/
+**/Sorted/
+**/Logs/
+*.log
+# Local environment/secrets
+.env
+.env.*
+*.pfx
+*.p12
+*.key
+secrets.json
+appsettings.Development.json

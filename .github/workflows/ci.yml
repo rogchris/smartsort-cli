@@ -1,0 +1,26 @@
+name: ci
+on: [push, pull_request]
+permissions:
+  contents: read
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Restore
+        run: dotnet restore SmartSorter.sln --locked-mode -p:NuGetAuditMode=all -warnaserror:NU1903,NU1904
+      - name: Build
+        run: dotnet build SmartSorter.sln --configuration Release --no-restore --warnaserror
+      - name: Test
+        run: dotnet test SmartSorter.sln --configuration Release --no-build --no-restore --verbosity normal
