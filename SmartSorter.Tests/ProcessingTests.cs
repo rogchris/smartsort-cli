@@ -96,6 +96,25 @@ public class ProcessingTests
         Assert.DoesNotContain("private medical content", string.Join('\n', sink.Events.Select(e => e.RenderMessage())));
     }
 
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public async Task DisallowedSourceExtensionProducesFileFailure(bool dryRun)
+    {
+        var fs = new MockFileSystem();
+        var path = TestPaths.Get("in/file.txt");
+        fs.AddFile(path, new MockFileData("source"));
+        var processor = new DocumentProcessor(new FileSystemDocumentSource(fs, 1, [".pdf"]),
+            new FileClassifier(Engine()), new FileMover(fs), fs, TestPaths.Get("out"));
+
+        var result = await processor.ProcessAsync(path, dryRun);
+
+        Assert.Equal(ProcessingOutcome.Failed, result.Outcome);
+        Assert.Equal(nameof(InvalidDataException), result.ErrorType);
+        Assert.Equal("source", fs.File.ReadAllText(path));
+        Assert.False(fs.Directory.Exists(TestPaths.Get("out")));
+    }
+
     private sealed class CollectingSink : ILogEventSink
     {
         public List<LogEvent> Events { get; } = [];

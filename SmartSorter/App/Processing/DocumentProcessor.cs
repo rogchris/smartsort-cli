@@ -39,7 +39,7 @@ public sealed class DocumentProcessor
             var destination = _mover.Move(sourcePath, target, cancellationToken);
             return new(sourcePath, classification, ProcessingOutcome.Moved, destination);
         }
-        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or ArgumentException)
+        catch (Exception ex) when (ex is IOException or InvalidDataException or UnauthorizedAccessException or ArgumentException)
         {
             return new(sourcePath, classification, ProcessingOutcome.Failed, ErrorType: ex.GetType().Name);
         }
