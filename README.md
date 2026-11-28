@@ -32,6 +32,6 @@ Die Testprojekte decken Regeln, Fehlerfälle und Dateioperationen ab. Die CI ist
 
 [Architektur und Datenfluss](docs/architecture.md) · [MIT-Lizenz für den Projektcode](LICENSE.txt) · [Sicherheit](SECURITY.md)
 
-PdfPig ist eine separate Abhängigkeit unter Apache-2.0. Diese Fassung trägt die Projektversion 1.0.0. Für Binärdistributionen gelten zusätzlich die Lizenzen und Hinweise der eingebundenen Pakete.
+PdfPig ist eine separate Abhängigkeit unter Apache-2.0. Diese Fassung trägt die Projektversion 1.0.1. Für Binärdistributionen gelten zusätzlich die Lizenzen und Hinweise der eingebundenen Pakete.
 
 [Release Notes](RELEASE-NOTES.md) · [Drittanbieterhinweise](THIRD-PARTY-NOTICES.md)
