@@ -96,6 +96,50 @@ public class ProcessingTests
         Assert.DoesNotContain("private medical content", string.Join('\n', sink.Events.Select(e => e.RenderMessage())));
     }
 
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public async Task DisallowedSourceExtensionProducesFileFailure(bool dryRun)
+    {
+        var fs = new MockFileSystem();
+        var path = TestPaths.Get("in/file.txt");
+        fs.AddFile(path, new MockFileData("source"));
+        var processor = new DocumentProcessor(new FileSystemDocumentSource(fs, 1, [".pdf"]),
+            new FileClassifier(Engine()), new FileMover(fs), fs, TestPaths.Get("out"));
+
+        var result = await processor.ProcessAsync(path, dryRun);
+
+        Assert.Equal(ProcessingOutcome.Failed, result.Outcome);
+        Assert.Equal(nameof(InvalidDataException), result.ErrorType);
+        Assert.Equal("source", fs.File.ReadAllText(path));
+        Assert.False(fs.Directory.Exists(TestPaths.Get("out")));
+    }
+
+    [Fact]
+    public async Task CancellationDuringFinalEnumerationDoesNotReportCompletion()
+    {
+        using var cancellation = new CancellationTokenSource();
+        var sink = new CollectingSink();
+        using var logger = new LoggerConfiguration().WriteTo.Sink(sink).CreateLogger();
+        var fs = new MockFileSystem();
+        fs.AddDirectory(TestPaths.Get("in"));
+        var directory = FileSystemProxy.Wrap<IDirectory>(fs.Directory, (method, _, next) =>
+            method.Name == nameof(IDirectory.EnumerateDirectories) ? FinishEnumeration() : next());
+        var proxy = FileSystemProxy.Wrap<IFileSystem>(fs, (method, _, next) =>
+            method.Name == "get_Directory" ? directory : next());
+        var app = new SortApplication(new FileScanner(proxy, logger), Processor(proxy), logger, proxy);
+
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(() =>
+            app.RunAsync(ConfigurationLoaderTests.Settings(), cancellation.Token));
+        Assert.DoesNotContain(sink.Events, e => e.MessageTemplate.Text.StartsWith("Processing completed"));
+
+        IEnumerable<string> FinishEnumeration()
+        {
+            cancellation.Cancel();
+            yield break;
+        }
+    }
+
     private sealed class CollectingSink : ILogEventSink
     {
         public List<LogEvent> Events { get; } = [];
