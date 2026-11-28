@@ -28,7 +28,7 @@
 
 ## Designentscheidungen
 
-- **Modularer Monolith statt Microservices:** Für ein lokales Kommandozeilenprogramm übersichtlicher und einfacher testbar.
+- **Ein lokaler Prozess:** Die Klassifizierung entscheidet über das Ziel. Der Dateisystemcode führt den geprüften Plan aus.
 - **Interfaces dort, wo sie helfen:** `IDocumentTextExtractor` kapselt PDF-Verarbeitung; `System.IO.Abstractions` ermöglicht simulierte Dateisysteme in Tests.
 - **Deterministische Regeln:** Priorität zuerst, bei Gleichstand feste Sortierung nach Regelname.
 - **DryRun als Standard:** Aktionen vor einem echten Verschieben nachvollziehen; standardmäßig keine Schreiboperationen auf Zieldateien.
@@ -38,19 +38,13 @@
 
 ## Grenzen
 
-Die Anwendung überwacht Ordner nicht dauerhaft. Es existieren keine Datenbank, Web-API, Weboberfläche oder OCR. Der PDF-Parser ist keine Sandbox für nicht vertrauenswürdige Eingabedateien. Prüfungen auf Symlinks/Pfade eliminieren keine Race Conditions mit konkurrierenden Dateisystemänderungen. Der Betrieb sollte deshalb auf vertrauenswürdigen Ordnern erfolgen.
+SmartSort verarbeitet einen lokalen Batch. Scans ohne Textebene benötigen OCR außerhalb der Anwendung. Verwende vertrauenswürdige Ordner und PDFs. Der PDF-Parser läuft ohne Sandbox. Bei gleichzeitig veränderten Ordnern können sich Pfade nach der Prüfung ändern.
 
 Siehe [SECURITY.md](../SECURITY.md) für die ausführlichen Einschränkungen.
 
 ## Testen
 
-```sh
-dotnet restore SmartSorter.sln --locked-mode
-dotnet build SmartSorter.sln -c Release --no-restore --warnaserror
-dotnet test SmartSorter.sln -c Release --no-build --no-restore
-```
-
-Die GitHub-Actions-Konfiguration führt diese Schritte auf Windows und Linux aus. Ein erfolgreiches CI-Ergebnis ist ein technischer Nachweis für den geprüften Stand, nicht für Fehlerfreiheit.
+Die [Startanleitung](../README.md#mit-beispieldateien-ausprobieren) enthält die Befehle für Restore, Build und Tests. Die CI führt die Prüfungen auf Windows und Ubuntu aus.
 
 ## Datenfluss
 

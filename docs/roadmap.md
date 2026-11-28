@@ -1,21 +1,5 @@
 # Roadmap
 
-Die hier aufgeführten Punkte sind **Ideen bzw. nächste Entwicklungsschritte, keine bereits vorhandenen Funktionen**.
+The next step is to migrate the CLI and tests to .NET 10 LTS. Update the SDK and CI configuration, then rerun the Windows and Linux tests and the dry-run, collision and PDF smoke checks.
 
-## Nächste sinnvolle Schritte
-
-- Erweiterte Beispielkonfigurationen und reproduzierbare Demodateien ohne persönliche Daten
-- Zusätzliche Regressionstests für Randfälle der Dateiablage
-- Präzisere Dokumentation der Grenzen bei wechselnden Dateisystemzuständen
-- Überprüfung und Aktualisierung der Abhängigkeiten mit Berücksichtigung der jeweiligen Lizenzen
-
-## Mögliche spätere Erweiterungen
-
-- Hintergrunddienst mit dauerhafter Ordnerüberwachung
-- Dokument-Metadaten, persistierte Verarbeitungshistorie und Duplikaterkennung
-- ASP.NET-Core-Web-API und Weboberfläche
-- Datenbankanbindung
-- OCR und zusätzliche Dokumentformate
-- Manuelle Prüfung unsicherer Klassifizierungen
-
-**Aktueller Fokus:** die lokale Verarbeitung stabil, überprüfbar und nachvollziehbar halten, bevor zusätzliche Infrastruktur entsteht.
+Keep testing local file operations when files or folders change during a run. Use synthetic files for examples and regression tests.
