@@ -1,6 +1,6 @@
 # Architektur und technische Entscheidungen
 
-**Stand:** SmartSort als lokale .NET-8-Konsolenanwendung (Batch-Verarbeitung).
+SmartSort verarbeitet lokale Dateien als Batch in einer .NET-10-Konsolenanwendung.
 
 ## Komponenten
 

@@ -6,9 +6,15 @@ SmartSort ist ein Kommandozeilenprogramm in C#, das lokale Dateien nach JSON-Reg
 
 Die Vorschau (Dry-Run) ist standardmäßig aktiv. Sie protokolliert die geplanten Ziele und lässt die Quelldateien an Ort und Stelle. Beim Verschieben erhält eine Datei bei einem Namenskonflikt einen nummerierten Namen. Die vorhandene Datei bleibt erhalten.
 
+## Download v2.0.0
+
+[Windows x64 ZIP](https://github.com/rogchris/smartsort-cli/releases/download/v2.0.0/SmartSort-2.0.0-win-x64.zip) · [Linux x64 TAR.GZ](https://github.com/rogchris/smartsort-cli/releases/download/v2.0.0/SmartSort-2.0.0-linux-x64.tar.gz) · [SHA-256](https://github.com/rogchris/smartsort-cli/releases/download/v2.0.0/SHA256SUMS.txt)
+
+Die Archive enthalten die .NET-10-Laufzeit und synthetische Beispieldateien. Entpacke das passende Archiv und starte SmartSort im entpackten Ordner. Der Windows-Launcher ist unsigniert. Windows kann je nach Sicherheitsrichtlinie eine Warnung anzeigen oder den Start unterbinden. Das Linux-Archiv wurde unter Ubuntu 24.04 x64 geprüft. [Demo in unter drei Minuten](docs/demo.md)
+
 ## Mit Beispieldateien ausprobieren
 
-Der Quellcode von v1.0.1 zielt auf .NET 8 und benötigt zum Build das .NET 8 SDK. Der Microsoft-Support für .NET 8 endete am 10. November 2026. Die Umstellung auf .NET 10 ist separat geplant. [Release v1.0.1](https://github.com/rogchris/smartsort-cli/releases/tag/v1.0.1) · [Microsoft-Supportkalender](https://dotnet.microsoft.com/en-us/platform/support/policy/dotnet-core) · [Roadmap](docs/roadmap.md)
+Dieser Quellstand benötigt das .NET 10 SDK. Das veröffentlichte v1.0.1 verwendet noch .NET 8. Der Microsoft-Support dafür endete am 10. November 2026. [Release v1.0.1](https://github.com/rogchris/smartsort-cli/releases/tag/v1.0.1) · [Microsoft-Supportkalender](https://dotnet.microsoft.com/en-us/platform/support/policy/dotnet-core) · [Roadmap](docs/roadmap.md)
 
 Pakete wiederherstellen, Build ausführen und Tests starten. Alle Befehle laufen vom Repository-Stamm aus.
 
@@ -26,7 +32,7 @@ Relative Pfade beziehen sich auf das Arbeitsverzeichnis. [Pfade und Grenzwerte](
 
 ## Tests und Grenzen
 
-Die CI auf Windows und Ubuntu führt den Restore mit Lockfiles, den Release-Build und Tests zu Regeln, PDF-Extraktion, Dateioperationen und Fehlerfällen aus. [CI-Lauf für v1.0.1](https://github.com/rogchris/smartsort-cli/actions/runs/46134080043)
+Der CI-Workflow ist für Windows und Ubuntu eingerichtet. Er führt den Restore mit Lockfiles, den Release-Build und Tests zu Regeln, PDF-Extraktion, Dateioperationen und Fehlerfällen aus. [CI des veröffentlichten v1.0.1](https://github.com/rogchris/smartsort-cli/actions/runs/46134080043)
 
 Verwende vertrauenswürdige Ordner und PDFs. Scans ohne eingebettete Textebene benötigen eine separate OCR-Verarbeitung. Protokolle können Dateinamen und Pfade enthalten. [Architektur](docs/architecture.md) · [Sicherheit](SECURITY.md)
 
