@@ -115,6 +115,31 @@ public class ProcessingTests
         Assert.False(fs.Directory.Exists(TestPaths.Get("out")));
     }
 
+    [Fact]
+    public async Task CancellationDuringFinalEnumerationDoesNotReportCompletion()
+    {
+        using var cancellation = new CancellationTokenSource();
+        var sink = new CollectingSink();
+        using var logger = new LoggerConfiguration().WriteTo.Sink(sink).CreateLogger();
+        var fs = new MockFileSystem();
+        fs.AddDirectory(TestPaths.Get("in"));
+        var directory = FileSystemProxy.Wrap<IDirectory>(fs.Directory, (method, _, next) =>
+            method.Name == nameof(IDirectory.EnumerateDirectories) ? FinishEnumeration() : next());
+        var proxy = FileSystemProxy.Wrap<IFileSystem>(fs, (method, _, next) =>
+            method.Name == "get_Directory" ? directory : next());
+        var app = new SortApplication(new FileScanner(proxy, logger), Processor(proxy), logger, proxy);
+
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(() =>
+            app.RunAsync(ConfigurationLoaderTests.Settings(), cancellation.Token));
+        Assert.DoesNotContain(sink.Events, e => e.MessageTemplate.Text.StartsWith("Processing completed"));
+
+        IEnumerable<string> FinishEnumeration()
+        {
+            cancellation.Cancel();
+            yield break;
+        }
+    }
+
     private sealed class CollectingSink : ILogEventSink
     {
         public List<LogEvent> Events { get; } = [];

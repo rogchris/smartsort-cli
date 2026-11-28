@@ -50,6 +50,7 @@ public sealed class SortApplication
                     path, result.Outcome, result.Classification?.RuleName ?? "Default", result.Classification?.TargetSubfolder,
                     result.Classification?.ExtractionStatus, result.Classification?.TextWasTruncated, result.DestinationPath);
         }
+        cancellationToken.ThrowIfCancellationRequested();
         var summary = new ProcessingSummary(discovered, moved, simulated, failed);
         _logger.Information("Processing completed; Discovered={Discovered}; Moved={Moved}; Simulated={Simulated}; Failed={Failed}", discovered, moved, simulated, failed);
         return summary;
