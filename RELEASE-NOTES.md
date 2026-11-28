@@ -1,5 +1,11 @@
 # SmartSort release notes
 
+## 2.0.0
+
+- Build the CLI and tests with .NET 10 LTS. The file sorting rules and command-line options are unchanged.
+- Provide self-contained ZIP (Windows x64) and TAR.GZ (Linux x64) downloads, SHA-256 checksums and a short demo using synthetic files.
+- The Windows launcher is unsigned and may be blocked by local policy. The Linux archive was verified on Ubuntu 24.04 x64.
+
 ## 1.0.1
 
 - A disallowed extension is reported as a per-file failure, so the batch can continue.
